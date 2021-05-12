@@ -1,23 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Form from "./components/Form"
+import List from "./components/List";
 
 function App() {
+  const [inputText, setInput] = useState("");
+  const [groceries, setGroceries] = useState([]);
+  useEffect(() => {
+    getLocalStorage();
+  }, []);
+  useEffect(() => {
+    saveLocalStorage();
+  })
+  const saveLocalStorage = () => {
+    window.localStorage.setItem('groceries', JSON.stringify(groceries));
+  }
+  const removeLocalStorage = () => {
+    window.localStorage.removeItem('groceries');
+    location.reload();
+  }
+  const getLocalStorage = () => {
+    if (window.localStorage.getItem('groceries') === null) {
+      window.localStorage.setItem('groceries', JSON.stringify([]));
+    }
+    else {
+      let groceriesLocal = JSON.parse(localStorage.getItem("groceries"));
+      setGroceries(groceriesLocal);
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div style={{ textAlign: 'center' }} className="container mt-1">
+      <header>
+        <h2>Grocery Bud</h2>
       </header>
+      <Form inputText={inputText} groceries={groceries} setGroceries={setGroceries} setInput={setInput} />
+      <List setGroceries={setGroceries} groceries={groceries} />
+      {groceries.length > 0 &&
+        <button type="button" className="btn btn-danger" onClick={removeLocalStorage}>Clear All</button>
+      }
     </div>
   );
 }
