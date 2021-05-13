@@ -46,7 +46,7 @@ const Groceries = ({ text, item, groceries, setGroceries }) => {
                 <li className="mb-2">
                     <form onSubmit={handleSubmit}>
                         <input type="text" value={text} name="text" id="" onChange={handleChange} autoFocus />
-                        <button type="submit" className="btn btn-warning">Edit</button>
+                        <button type="submit" className="btn btn-outline-primary">Save</button>
                     </form>
                 </li>
             }

@@ -15,8 +15,11 @@ function App() {
     window.localStorage.setItem('groceries', JSON.stringify(groceries));
   }
   const removeLocalStorage = () => {
-    window.localStorage.removeItem('groceries');
-    location.reload();
+    let confirmation = confirm('Are you sure you want to clear all the Groceries?');
+    if (confirmation === true) {
+      window.localStorage.removeItem('groceries');
+      location.reload();
+    }
   }
   const getLocalStorage = () => {
     if (window.localStorage.getItem('groceries') === null) {
