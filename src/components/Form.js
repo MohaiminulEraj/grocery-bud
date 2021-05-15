@@ -8,7 +8,7 @@ function Form({ setInput, inputText, groceries, setGroceries }) {
     const handleSumbit = e => {
         e.preventDefault();
         (inputText.length > 0) ?
-            setGroceries([...groceries, { text: inputText, id: '_' + Math.random().toString(36).substr(2, 9), isEditable: false }]) : alert('Please Enter a valid input')
+            setGroceries([...groceries, { text: inputText.charAt(0).toUpperCase() + inputText.slice(1), id: '_' + Math.random().toString(36).substr(2, 9), isEditable: false }]) : alert('Please Enter a valid input')
         setInput('');
     }
 
